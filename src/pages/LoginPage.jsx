@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
 
@@ -13,6 +15,7 @@ export default function LoginPage() {
     try {
       setStatus(null);
       const res = await api.post("/auth/magic-link", { email });
+      navigate("/magic-link-sent", { state: { email } });
       setStatus(res.data.message || "Magic link sent!");
     } catch (err) {
       setStatus(err.response?.data?.error || "Failed to send magic link");
