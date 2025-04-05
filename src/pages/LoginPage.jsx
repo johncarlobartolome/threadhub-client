@@ -4,7 +4,6 @@ import api from "../services/api";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const handleMagicLink = async () => {
     if (!email) {
@@ -12,7 +11,6 @@ export default function LoginPage() {
       return;
     }
     try {
-      setLoading(true);
       setStatus(null);
       const res = await api.post("/auth/magic-link", { email });
       setStatus(res.data.message || "Magic link sent!");
