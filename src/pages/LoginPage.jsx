@@ -6,6 +6,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleMagicLink = async () => {
     if (!email) {
@@ -13,6 +14,7 @@ export default function LoginPage() {
       return;
     }
     try {
+      setLoading(true);
       setStatus(null);
       const res = await api.post("/auth/magic-link", { email });
       navigate("/magic-link-sent", { state: { email } });
@@ -57,7 +59,7 @@ export default function LoginPage() {
                 onClick={handleMagicLink}
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md font-medium transition"
               >
-                Send Magic Link
+                {loading ? "Sending..." : "Send Magic Link"}
               </button>
               {status && (
                 <div className="text-sm text-gray-600 text-center">
