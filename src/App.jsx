@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import MagicLinkSent from "./pages/MagicLinkSentPage";
 import HomePage from "./pages/HomePage";
 import MagicLoginPage from "./pages/MagicLoginPage";
+import SettingsPage from "./pages/SettingsPage";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/magic-link-sent" element={<MagicLinkSent />} />
         <Route path="/magic-login/:token" element={<MagicLoginPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </BrowserRouter>
   );
