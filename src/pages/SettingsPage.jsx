@@ -30,7 +30,7 @@ export default function SettingsPage() {
       }
     };
     fetchProfile();
-  }, []);
+  });
 
   const handleChange = (e) => {
     e.preventDefault();
