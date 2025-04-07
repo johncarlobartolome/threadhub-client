@@ -1,5 +1,5 @@
-import FriendsPanel from "../components/FriendsPanel";
 import Feed from "../components/Feed";
+import FriendsPage from "./FriendsPage";
 
 export default function HomePage() {
   return (
@@ -15,8 +15,9 @@ export default function HomePage() {
           </a>
         </nav>
       </aside>
-      <main className="flex-1 px-60 py-10">
-        <Feed />
+      <main className="flex-1 px-30 py-10">
+        {/* <Feed /> */}
+        <FriendsPage />
       </main>
     </div>
   );

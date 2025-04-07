@@ -18,7 +18,7 @@ export default function Feed() {
 
     fetchThreads();
     console.log(threads);
-  });
+  }, []);
 
   return (
     <>

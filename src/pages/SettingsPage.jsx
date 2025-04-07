@@ -13,7 +13,7 @@ export default function SettingsPage() {
     calledRef.current = true;
     const fetchProfile = async () => {
       try {
-        const res = await API.get("/user/profile", {
+        const res = await API.get("/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = res.data.user;
@@ -44,7 +44,7 @@ export default function SettingsPage() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      await API.put("/user/profile", form, {
+      await API.put("/users/profile", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStatus("Profile updated!");

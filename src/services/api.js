@@ -17,5 +17,6 @@ API.interceptors.request.use(
 );
 
 export const getThreads = () => API.get("/threads");
+export const getUserData = (userId) => API.get(`/users/${userId}`);
 
 export default API;
