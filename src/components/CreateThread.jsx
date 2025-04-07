@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { uploadImage } from "../utils/uploadImage";
 import { deleteImage } from "../utils/deleteImage";
-import api from "../services/api";
+import API from "../services/api";
 import { getUserFromToken } from "../utils/auth";
 
-export default function MainContent() {
+export default function CreateThread() {
   const [token] = useState(localStorage.getItem("authToken"));
   const user = getUserFromToken();
   const userId = user?.userId;
@@ -39,7 +39,7 @@ export default function MainContent() {
       const urls = await Promise.all(uploadPromises);
       uploadedUrls.push(...urls);
       console.log(urls);
-      const res = await api.post(
+      const res = await API.post(
         "/threads/post",
         {
           userId,
@@ -66,7 +66,6 @@ export default function MainContent() {
       alert("Failed to post thread. Uploaded images has been removed.");
     }
   };
-
   return (
     <div className="bg-white rounded-2xl shadow p-4">
       <textarea

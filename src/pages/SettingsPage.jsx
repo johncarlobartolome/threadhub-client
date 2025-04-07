@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import api from "../services/api";
+import API from "../services/api";
 import FormField from "../components/FormField";
 
 export default function SettingsPage() {
@@ -13,7 +13,7 @@ export default function SettingsPage() {
     calledRef.current = true;
     const fetchProfile = async () => {
       try {
-        const res = await api.get("/user/profile", {
+        const res = await API.get("/user/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = res.data.user;
@@ -44,7 +44,7 @@ export default function SettingsPage() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      await api.put("/user/profile", form, {
+      await API.put("/user/profile", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStatus("Profile updated!");
