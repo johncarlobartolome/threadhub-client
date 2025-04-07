@@ -2,11 +2,12 @@ import { useState } from "react";
 import { uploadImage } from "../utils/uploadImage";
 import { deleteImage } from "../utils/deleteImage";
 import api from "../services/api";
+import { getUserFromToken } from "../utils/auth";
 
 export default function MainContent() {
-  const user = JSON.parse(localStorage.getItem("token"));
-  const userId = user?._id;
-  console.log(userId);
+  const [token] = useState(localStorage.getItem("authToken"));
+  const user = getUserFromToken();
+  const userId = user?.userId;
   const [text, setText] = useState("");
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
@@ -38,21 +39,30 @@ export default function MainContent() {
       const urls = await Promise.all(uploadPromises);
       uploadedUrls.push(...urls);
       console.log(urls);
-      const res = await api.post("/threads", {
-        userId,
-        content: text,
-        mediaUrls: uploadedUrls,
-      });
+      const res = await api.post(
+        "/threads/post",
+        {
+          userId,
+          content: text,
+          mediaUrls: uploadedUrls,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.error || "Thread creation failed.");
+      const result = res.data;
+      console.log(res.status);
+      if (res.status !== 201)
+        throw new Error(result.error || "Thread creation failed.");
       // onPost(result.thread);
       setText("");
       setImages([]);
       setPreviewUrls([]);
     } catch (error) {
-      console.error("Post failed:", error);
       await Promise.all(uploadedUrls.map(deleteImage));
+      console.error("Post failed:", error);
+
       alert("Failed to post thread. Uploaded images has been removed.");
     }
   };

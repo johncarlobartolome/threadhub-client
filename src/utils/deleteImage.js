@@ -3,6 +3,7 @@ import { extractFileNameFromUrl } from "./extractFileName";
 
 export const deleteImage = async (url) => {
   const fileName = extractFileNameFromUrl(url);
+  console.log("Debugging", fileName);
   const { error } = await supabase.storage
     .from("threadhub-images")
     .remove([fileName]);
